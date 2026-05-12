@@ -118,17 +118,72 @@ Each town has:
 - The **dragon's lair** — final dungeon after all towns cleared
 - The dragon is the final boss
 
+### Town Progression
+
+| # | Town | Biome | Identity | Boss |
+|---|------|-------|----------|------|
+| 1 | Starting Village | Plains | Tutorial, fetch quest, dragon destroys it | Tutorial enemies |
+| 2 | Forest Town | Woodland | First real hub, rustic hunters/woodcutters | Corrupted forest creature |
+| 3 | Mining Town | Mountains | Tough miners, something wrong underground | Mine boss (TBD) |
+| 4 | Port City | Coast | Biggest settlement, politics, trade | Sea boss (TBD) |
+| 5 | Volcanic Settlement | Ashlands | Dragon's territory, hardened survivors | Dragon's servant (TBD) |
+| 6 | Doorstep Camp | Dragon Territory | Last stand camp, final prep | Dragon's gatekeeper (TBD) |
+| Final | Dragon's Lair | — | Final dungeon | The Dragon |
+
+### Town 1: Starting Village (Plains)
+- Pastoral farming village, your home
+- Fetch quest as combat tutorial — learn auto-battler basics
+- Return to find the village destroyed by the dragon
+- Potentially save someone — first party member recruit
+- Leave with nothing. The journey begins.
+
+### Town 2: Forest Town (Woodland)
+- Woodcutters, hunters, close enough to see the smoke from your village
+- First real shops, respec, and stations
+- Rustic, self-sufficient people — wary but willing to help
+- 1-2 recruits available
+- Boss: corrupted forest creature — warped by the dragon's presence
+
+### Town 3: Mountain Mining Town (Mountains)
+- Built into cliffs around a mine
+- Tough, hardworking people. Rich in resources but something's gone wrong underground.
+- Shops have better gear — mining town means metal and weapons
+- 1-2 recruits
+- Boss: something from deep in the mine, awakened or corrupted by the dragon
+
+### Town 4: Coastal Port City (Coast)
+- Biggest settlement so far. Busy, political, a real city.
+- Navy that's useless against a dragon. Trade disrupted.
+- Best shops yet — exotic goods from overseas
+- 1-2 recruits
+- Boss: something from the sea, corrupted or emboldened by the dragon's chaos
+
+### Town 5: Volcanic Settlement (Ashlands)
+- In the dragon's territory. Ash in the air, scorched earth.
+- People have lived under the dragon's shadow the longest — hardened, fatalistic.
+- Gear is endgame quality — forged in volcanic heat
+- 1-2 recruits — the toughest people you'll meet
+- Boss: a lieutenant or servant of the dragon itself
+
+### Town 6: Dragon's Doorstep Camp (Dragon Territory)
+- Makeshift camp of survivors, failed dragon slayers, and desperate allies
+- Last chance to prep — final gear, respec, station reassignment
+- 1-2 recruits — grizzled veterans who've faced the dragon before
+- Boss: the dragon's guardian or gatekeeper
+- After this: the dragon's lair
+
 ---
 
 ## Open Questions
 
-- Specific town themes and boss identities
 - Character designs and which class each one is
 - Specialization details for all 9 base classes
+- Specific boss designs for each town
 - Stat system (which stats exist, how they interact)
 - Gear system depth
 - Commander action specifics
 - Art style
 - How robot and alien classes fit the earnest fantasy tone
 - Station expansion plans
-- Story details beyond "dragon attacks village"
+- The dragon — identity, phases, lore
+- Town names
