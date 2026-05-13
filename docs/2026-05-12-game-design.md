@@ -28,21 +28,36 @@ A classic RPG with auto-battler combat. A dragon attacks your village. Travel to
 
 ### Class System
 
-9 base classes, each branching into 2 specializations (18 total specs):
+Each character has a **unique base class** that branches into 2 specializations. No two party members start the same — the class system IS the characters.
 
-| Base Class | Spec A | Spec B |
-|------------|--------|--------|
-| Warrior | TBD | TBD |
-| Mage | TBD | TBD |
-| Healer | TBD | TBD |
-| Rogue | TBD | TBD |
-| Ranger | TBD | TBD |
-| Monk | TBD | TBD |
-| Robot | TBD | TBD |
-| Alien | TBD | TBD |
-| Summoner | TBD | TBD |
+8 characters = 8 base classes = 16 total specs. Each town provides roughly one combat-focused and one support-focused recruit.
 
-- Each character starts as a base class and levels into a specialization
+| # | Town | Character | Role | Base Class | Spec A | Spec B |
+|---|------|-----------|------|------------|--------|--------|
+| 1 | Starting Village | Protagonist | Combat | Leader (tanks + buffs) | TBD | TBD |
+| 1 | Starting Village | Childhood friend / love interest | Support | Healer | TBD | TBD |
+| 2 | Lumber Camp | Huntmaster | Combat | Ranger | Rogue | Beastmaster |
+| 2 | Lumber Camp | Carpenter | Support | Axman | Warrior | Craftsman |
+| 3 | Mining Town | Demo expert | Combat | Engineer | Demolitionist | Mechanist |
+| 3 | Mining Town | TBD (waiting for narrative) | Support | TBD | TBD | TBD |
+| 4 | Port City | Sailor | Combat | Gunner | Cannoneer | Pistoleer |
+| 4 | Port City | Angler | Support | Angler | Provisioner | Navigator |
+| 5 | Volcanic Settlement | TBD | ? | TBD | TBD | TBD |
+| 6 | Dragon's Castle | TBD | ? | TBD | TBD | TBD |
+
+### The Protagonist — Leader
+
+The protagonist's power is charisma — not slimy, genuine. People follow them because they care and are willing to help. They take the hard work, they take the danger, they never ask anyone to do anything they wouldn't do.
+
+- In the active party as a frontline tank/buffer
+- Also provides the 1-2 commander actions per fight
+- Leads from the front — passive aura makes everyone fight harder around them
+- Their "class" is organizing people and instilling solidarity
+
+### Combat vs. Narrative Death
+
+Deaths in combat are mechanical — everyone heals up and revives after each round. Losing a fight = game over, reload from last town. Narrative deaths only happen in cutscenes and are permanent story beats.
+
 - Specialization choice can be **respec'd at towns** for a cost
 
 ### Leveling
