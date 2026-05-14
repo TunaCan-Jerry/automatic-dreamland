@@ -19,37 +19,61 @@ A classic RPG with auto-battler combat. A dragon attacks your village. Travel to
 
 ---
 
+## Core Theme
+
+**Our attachments and relationships with each other make us stronger.** Every recruit comes as a bonded pair — combat partner + support partner. Lovers, spouses, best friends, family. The party grows town by town, and more relationships = more power, both narratively and mechanically.
+
 ## Party & Roster
 
-- **4 active party members** in combat at a time
-- **6-8 total recruitable characters** across the journey
-- Characters recruited at different towns along the journey
-- Bench characters assigned to **stations** (see Bench Station System)
+### Bonded Pairs
+
+Every recruitment is a pair: one **combat character** (fights on the battlefield) and one **support character** (runs a station from the bench). Each pair is bonded — their relationship is why they both join.
+
+- **6 bonded pairs = 12 characters total** (6 combat, 6 support)
+- **All combat characters fight every battle** — no party cap. Your army grows as you recruit.
+- **Support characters run stations** — each has a unique station shaped by their class/identity, effectiveness scales with their stats.
+- Early game: 1-2 combat characters, scrappy fights. Endgame: 6 on the field, full squad.
+
+### Recruitment
+
+Characters are recruited at major towns and nearby villages:
+- Some join immediately when asked
+- Some decline at first — a side quest/cutscene at their home village triggers them joining
+- Each recruitment is a story moment, not a menu prompt
 
 ### Class System
 
-Each character has a **unique base class** that branches into 2 specializations. No two party members start the same — the class system IS the characters.
+Each character — combat and support — has a **unique base class** that branches into 2 specializations via their skill tree. No two characters start the same.
 
-8 characters = 8 base classes = 16 total specs. Each town provides roughly one combat-focused and one support-focused recruit.
+12 characters = 12 base classes = 24 total specs.
 
-| # | Town | Character | Role | Base Class | Spec A | Spec B |
-|---|------|-----------|------|------------|--------|--------|
-| 1 | Starting Village | Protagonist | Combat | Leader (tanks + buffs) | TBD | TBD |
-| 1 | Starting Village | Childhood friend / love interest | Support | Healer | TBD | TBD |
-| 2 | Lumber Camp | Huntmaster | Combat | Ranger | Rogue | Beastmaster |
-| 2 | Lumber Camp | Carpenter | Support | Axman | Warrior | Craftsman |
-| 3 | Mining Town | Demo expert | Combat | Engineer | Demolitionist | Mechanist |
-| 3 | Mining Town | TBD (waiting for narrative) | Support | TBD | TBD | TBD |
-| 4 | Port City | Sailor | Combat | Gunner | Cannoneer | Pistoleer |
-| 4 | Port City | Angler | Support | Angler | Provisioner | Navigator |
-| 5 | Volcanic Settlement | TBD | ? | TBD | TBD | TBD |
-| 6 | Dragon's Castle | TBD | ? | TBD | TBD | TBD |
+**Combat Characters:**
+
+| # | Town | Character | Base Class | Spec A | Spec B |
+|---|------|-----------|------------|--------|--------|
+| 1 | Starting Village | Protagonist | Leader (tanks + buffs) | TBD | TBD |
+| 2 | Lumber Camp | Huntmaster | Ranger | Rogue | Beastmaster |
+| 3 | Mining Town | Demo expert | Engineer | Demolitionist | Mechanist |
+| 4 | Port City | Sailor | Gunner | Cannoneer | Pistoleer |
+| 5 | Volcanic Settlement | TBD | TBD | TBD | TBD |
+| 6 | Dragon's Castle | TBD | TBD | TBD | TBD |
+
+**Support Characters:**
+
+| # | Town | Character | Base Class | Spec A | Spec B | Bonded To |
+|---|------|-----------|------------|--------|--------|-----------|
+| 1 | Starting Village | Childhood friend / love interest | Healer | TBD | TBD | Protagonist |
+| 2 | Lumber Camp | Carpenter | Axman | Warrior | Craftsman | Huntmaster |
+| 3 | Mining Town | TBD | TBD | TBD | TBD | Demo expert |
+| 4 | Port City | Angler | Angler | Provisioner | Navigator | Sailor |
+| 5 | Volcanic Settlement | TBD | TBD | TBD | TBD | TBD |
+| 6 | Dragon's Castle | TBD | TBD | TBD | TBD | TBD |
 
 ### The Protagonist — Leader
 
 The protagonist's power is charisma — not slimy, genuine. People follow them because they care and are willing to help. They take the hard work, they take the danger, they never ask anyone to do anything they wouldn't do.
 
-- In the active party as a frontline tank/buffer
+- Fights on the battlefield as a frontline tank/buffer
 - Also provides the 1-2 commander actions per fight
 - Leads from the front — passive aura makes everyone fight harder around them
 - Their "class" is organizing people and instilling solidarity
@@ -58,13 +82,46 @@ The protagonist's power is charisma — not slimy, genuine. People follow them b
 
 Deaths in combat are mechanical — everyone heals up and revives after each round. Losing a fight = game over, reload from last town. Narrative deaths only happen in cutscenes and are permanent story beats.
 
-- Specialization choice can be **respec'd at towns** for a cost
+---
 
-### Leveling
+## Progression System
 
-- On level-up between rounds, player manually assigns stat increases
-- Shapes characters toward their role or covers weaknesses
-- Reinforces core identity: all meaningful decisions happen outside of combat
+All meaningful decisions happen outside of combat.
+
+### Stats (10)
+
+HP, MP, Attack, Defense, Magic, Resistance, Speed, Accuracy, Evasion, Luck
+
+- Both combat and support characters have the same stat set
+- Support character stats influence the effectiveness of their station
+
+### Leveling — Stat Points (Persona-style)
+
+- On level-up, distribute stat points across 10 stats
+- **Starts at 3 points per level, scales to 5** — early game forces hard choices, late game lets you fill gaps
+- Hard cap per stat (balancing knob)
+- Applies to both combat and support characters — building support characters is just as strategic
+
+### Skill Tree
+
+- Each character has a unique passive skill tree
+- **Skill points awarded at milestone levels** (not every level — spacing is a balancing knob)
+- Tree has a **binary fork** — the branch you take IS your specialization
+- Unlocks passives and abilities
+- **Respec at towns** for a cost
+- Both combat and support characters have full skill trees with specialization forks
+
+### Gear
+
+- Equip weapons, armor, accessories
+- Bought at shops, found as loot
+- Available for both combat and support characters
+
+### Abilities
+
+- Learned through the skill tree
+- Combat characters: choose which abilities to equip for each fight (loadout)
+- Support characters: abilities enhance their station effects
 
 ---
 
@@ -72,8 +129,8 @@ Deaths in combat are mechanical — everyone heals up and revives after each rou
 
 ### Pre-Fight Setup
 
-- Choose 4 active party members from roster
-- Equip gear and choose ability loadouts
+- All combat characters fight every battle — no party selection, army grows over time
+- Equip gear and choose ability loadouts per character
 - Set formation (front row / back row — front takes more damage, back is safer)
 - Set targeting priority per character (focus weakest, focus strongest, protect healer, etc.)
 
@@ -91,22 +148,14 @@ Deaths in combat are mechanical — everyone heals up and revives after each rou
 
 ---
 
-## Bench Station System
+## Station System
 
-Characters not in the active party are assigned to stations. Each station provides a passive buff scaled by the assigned character's power/level.
+Each support character runs a **unique station** determined by their class and identity. The station's effect scales with the support character's relevant stats. Building support characters (stat points, skill tree, gear) directly improves their station output.
 
-### Stations (4)
-
-| Station | Buff |
-|---------|------|
-| **Armory** | Buffs active party's attack/defense stats |
-| **Sanctum** | Buffs active party's magic/resistance stats |
-| **Watchtower** | Reveals enemy info before fights (types, weaknesses, formation) |
-| **Commissary** | Passive HP/MP regen between fights, bonus items/potions |
-
-- One bench character per station
-- Buff strength scales with assigned character's power/level
-- System designed to expand — more stations and complex interactions possible later
+- **Hybrid system:** character determines WHAT the station does, stats determine HOW WELL
+- Station count grows as you recruit — more pairs = more stations active
+- Support character skill tree specialization can change or enhance station behavior
+- Specific stations TBD per support character
 
 ---
 
@@ -117,16 +166,17 @@ Characters not in the active party are assigned to stations. Each station provid
 Each town has:
 
 - A **boss** to defeat before moving on
-- **1-2 recruitable characters**
+- **1 recruitable bonded pair** (combat + support character)
 - **Shops** (gear, items)
 - **Respec option** (change specialization for a cost)
 - Serves as **save checkpoint**
 
 ### Between Towns
 
-- Road encounters
+- **Visible encounters** — enemies on the map, you choose to engage or avoid. No random encounters. You see what's coming and prep accordingly. Cool creatures to discover.
+- **Camps** — rest stops for quick party management. Swap gear, reassign stations, but no shops or respec.
+- **Small villages** — quest destinations and character hometowns. Side content, story beats, recruitment cutscenes. Some characters decline to join at the main town and are recruited through a story moment at their home village.
 - Resource gathering
-- Story beats
 
 ### Finale
 
@@ -239,17 +289,20 @@ Not a town — the dragon's castle itself. The endgame.
 
 ## Open Questions
 
-- Character designs and which class each one is
-- Specialization details for all 9 base classes
-- Town 2 enforcer boss specifics
-- Stat system (which stats exist, how they interact)
+- Town 5 + 6 bonded pairs (combat + support characters)
+- Mining Town support character (waiting for narrative)
+- Specialization details for all character skill trees
+- Support character station specifics (what does each station do?)
+- Bonded pair mechanics — does the bond have a gameplay effect?
 - Gear system depth
 - Commander action specifics
 - Art style
-- How robot and alien classes fit the earnest fantasy tone
-- Station expansion plans
-- Small villages between towns (quest destinations, character hometowns)
+- Protagonist's specialization fork
+- Town 2 enforcer boss specifics
 - Town names
 - The butler — who/what are they?
 - Dragon's castle level design
-- Nearby villages and side quest structure
+- Small village locations, quests, and character hometowns
+- Creature/enemy bestiary for visible encounters
+- Stat cap values (balancing knob)
+- Skill point milestone spacing (balancing knob)
