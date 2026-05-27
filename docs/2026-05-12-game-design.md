@@ -62,7 +62,7 @@ Each character — combat and support — has a **unique base class** that branc
 
 | # | Town | Character | Base Class | Spec A | Spec B | Bonded To |
 |---|------|-----------|------------|--------|--------|-----------|
-| 1 | Starting Village | Childhood friend / love interest | Healer | TBD | TBD | Protagonist |
+| 1 | Starting Village | Claira (love interest) | Healer | TBD | TBD | Protagonist |
 | 2 | Lumber Camp | Carpenter | Axman | Warrior | Craftsman | Huntmaster |
 | 3 | Mining Town | TBD | TBD | TBD | TBD | Demo expert |
 | 4 | Port City | Angler | Angler | Provisioner | Navigator | Sailor |
@@ -81,6 +81,62 @@ The protagonist's power is charisma — not slimy, genuine. People follow them b
 ### Combat vs. Narrative Death
 
 Deaths in combat are mechanical — everyone heals up and revives after each round. Losing a fight = game over, reload from last town. Narrative deaths only happen in cutscenes and are permanent story beats.
+
+### Claira — Healer (ref: Clara Barton)
+
+Childhood friend and love interest. Fiery, stubborn, opinionated. She's not following you — she's coming with you because she decided to. Keeps you alive while telling you you're being an idiot.
+
+- **Grandmother:** The village elder. A retired adventurer who became the village healer. Taught Claira the trade — herbs, medicine, practical skills.
+- **Before the attack:** Apprentice healer, trained by her grandmother. Grew up hearing stories about grandma's younger days. Knew the old woman had an interesting past but never thought it would matter.
+- **The attack:** Loses her grandmother and her home. The skills grandma taught her suddenly have a different context.
+- **Personality:** Loyal but opinionated. Argues because she cares. Not a passive healer — active, fierce, present. The fire to the protagonist's warmth.
+- **Role:** Support character, runs a station from the bench. Her bond with the protagonist is the emotional core of the story.
+
+### The Elder (Claira's Grandmother)
+
+Retired adventurer who became the village healer. She had an interesting past — adventured when she was young, settled down, built a quiet life. Practical, wise, not sentimental about the old days.
+
+- Sends the protagonist on the fetch quest: deliver something to a nearby homestead, bring back a trinket.
+- The trinket is hers — a relic from her adventuring days. Gives passive buffs, can invest points for more effects. Transforms into something significant halfway through Act 2 (details TBD).
+- Dies in the dragon attack. The trinket becomes the protagonist's by default — there's no one left to give it to.
+
+### The Protagonist's Trinket
+
+A mysterious item from the elder's adventuring past. Carried as a memento at first.
+
+- Provides passive buffs from the start
+- Invest points to unlock more effects (progression system TBD)
+- Transforms halfway through Act 2, coinciding with the protagonist's realization that they're on a revenge quest
+- Exact form and nature left as a McGuffin for now
+
+---
+
+## Opening Experience
+
+### The Starting Village
+
+Small, cozy, rustic. Everyone knows each other.
+
+- **Village square** with a fountain at the center — the heart of town, where people gather
+- **Your house**
+- **Claira's family house** (she lives with her grandmother, the elder)
+- **The tavern** — social hub
+- **The elder's house** — Claira's grandmother, retired adventurer turned village healer
+
+Room for secrets and side discoveries to be layered in later.
+
+### Opening Flow
+
+1. **Start in the village** — cozy, rustic. Meet the elder, Claira, tavern folks. Establish the warmth of home.
+2. **The elder gives you the errand** — deliver something mundane to a nearby homestead, bring back the trinket.
+3. **The road** — encounter some critters. Auto-battler tutorial. Just you, solo.
+4. **The homestead** — deliver, pick up the trinket. Maybe a brief interaction.
+5. **Head back** — see smoke on the horizon.
+6. **Arrive to destruction** — village is gone. The dragon already left. It didn't even linger.
+7. **Find Claira** — save her from the wreckage. She joins as your healer.
+8. **Leave with nothing** — the trinket, Claira, and the road ahead.
+
+The village was founded by ordinary people. Some, like the elder, had interesting pasts. But there's no prophecy, no chosen one. The dragon didn't target the village — it was just in the way. You leave because there's nothing left.
 
 ---
 
