@@ -88,7 +88,7 @@ Childhood friend and love interest. Fiery, stubborn, opinionated. She's not foll
 
 - **Grandmother:** The village elder. A retired adventurer who became the village healer. Taught Claira the trade — herbs, medicine, practical skills.
 - **Before the attack:** Apprentice healer, trained by her grandmother. Grew up hearing stories about grandma's younger days. Knew the old woman had an interesting past but never thought it would matter.
-- **The attack:** Loses her grandmother and her home. The skills grandma taught her suddenly have a different context.
+- **The attack:** Her grandmother uses the last of her adventuring magic to shield Claira. The barrier is fading when the protagonist arrives — a few minutes later and she'd have burned too. Claira survives because of her grandmother's sacrifice and the protagonist's timing. She carries that weight the whole game.
 - **Personality:** Loyal but opinionated. Argues because she cares. Not a passive healer — active, fierce, present. The fire to the protagonist's warmth.
 - **Role:** Support character, runs a station from the bench. Her bond with the protagonist is the emotional core of the story.
 
@@ -98,7 +98,9 @@ Retired adventurer who became the village healer. She had an interesting past �
 
 - Sends the protagonist on the fetch quest: deliver something to a nearby homestead, bring back a trinket.
 - The trinket is hers — a relic from her adventuring days. Gives passive buffs, can invest points for more effects. Transforms into something significant halfway through Act 2 (details TBD).
-- Dies in the dragon attack. The trinket becomes the protagonist's by default — there's no one left to give it to.
+- Dies in the dragon attack — spends her last magic shielding Claira. Her final act was protecting her granddaughter.
+- The trinket becomes the protagonist's by default — there's no one left to give it to.
+- Had real magic from her adventuring days, kept it quiet. The village knew her as a healer, not a mage.
 
 ### The Protagonist's Trinket
 
@@ -115,28 +117,56 @@ A mysterious item from the elder's adventuring past. Carried as a memento at fir
 
 ### The Starting Village
 
-Small, cozy, rustic. Everyone knows each other.
+Small, cozy, rustic. Everyone knows each other. About a minute to walk end to end. Room for secrets and side discoveries.
 
-- **Village square** with a fountain at the center — the heart of town, where people gather
-- **Your house**
-- **Claira's family house** (she lives with her grandmother, the elder)
-- **The tavern** — social hub
-- **The elder's house** — Claira's grandmother, retired adventurer turned village healer
+**Layout (entrance to back):**
 
-Room for secrets and side discoveries to be layered in later.
+```
+[Village Exit / Road]
+        |
+    [Tavern] — near the entrance, first thing travelers see
+        |
+  [Village Square + Fountain] — center of town
+      /       \
+[Your House] [Claira's House] — near each other, residential area
+        |
+    [Fields] — farmland, farmers working
+        |
+  [Elder's House + Garden] — far edge, peaceful, removed
+```
+
+**NPCs (~14 people):**
+
+| Location | NPCs | Dialogue |
+|----------|------|----------|
+| Tavern | Tavern keeper + 2-3 patrons | Keeper: cheerful gossip, knew your parents, treats you like family. Patrons: 1-2 lines of flavor. |
+| Village Square | 2-3 kids playing near fountain | Running around, laughing. A line or two if talked to. |
+| Square bench | Old couple | Warm and sweet. One line that sticks with you after the village is gone — a hint of something. |
+| Fields | 2-3 farmers (including your dad) | Friendly waves, small talk. Dad's working. |
+| Claira's house area | Claira (in the square initially) | Real conversation — everyday banter, teasing. |
+| Elder's house | The elder | Real conversation — tea, warmth, then the errand. |
+| Your house | Empty (you just left) | A family photo inside: mom, dad, you. Mom works at the library. |
+
+**The protagonist's family:** Mom (librarian), Dad (farmer in the fields). Ordinary people. Both die in the attack.
 
 ### Opening Flow
 
-1. **Start in the village** — cozy, rustic. Meet the elder, Claira, tavern folks. Establish the warmth of home.
-2. **The elder gives you the errand** — deliver something mundane to a nearby homestead, bring back the trinket.
-3. **The road** — encounter some critters. Auto-battler tutorial. Just you, solo.
-4. **The homestead** — deliver, pick up the trinket. Maybe a brief interaction.
-5. **Head back** — see smoke on the horizon.
-6. **Arrive to destruction** — village is gone. The dragon already left. It didn't even linger.
-7. **Find Claira** — save her from the wreckage. She joins as your healer.
-8. **Leave with nothing** — the trinket, Claira, and the road ahead.
+1. **Leave your house** — the day starts normally.
+2. **Explore the village** — talk to tavern keeper (gossip + warmth), old couple (sweet + one haunting line), farmers, kids. See the family photo in your house. Dad's in the fields.
+3. **Find Claira at the square** — everyday banter, she gives you grief about something.
+4. **Walk together toward the elder's house** — passing through the residential area and fields.
+5. **Behind the tree** — Claira pulls you aside. Quick kiss, teasing, intimate. A private moment that's just yours. The relationship is already real.
+6. **Arrive at the elder's** — tea, warmth, grandma energy. She asks about your day, fusses over you.
+7. **The errand** — casual. "Can you run this to the Millers' and bring back something for me?" The trinket request is buried in a normal visit.
+8. **Leave the village alone** — Claira stays with grandma. She has things to do. Business as usual.
+9. **The road** — encounter some critters. Auto-battler tutorial. Just you, solo.
+10. **The homestead** — deliver the package, pick up the trinket. Brief interaction.
+11. **Head back** — see smoke on the horizon.
+12. **Arrive to destruction** — the village is gone. The dragon already left. It didn't even linger. Everyone is dead.
+13. **Find Claira** — her grandmother's magical barrier is fading. You pull her out just in time. A few minutes later and she'd have burned too. The elder spent her last magic on this.
+14. **Leave with nothing** — the trinket, Claira, and the road ahead.
 
-The village was founded by ordinary people. Some, like the elder, had interesting pasts. But there's no prophecy, no chosen one. The dragon didn't target the village — it was just in the way. You leave because there's nothing left.
+No prophecy, no chosen one. The dragon didn't target the village — it was just in the way.
 
 ---
 
