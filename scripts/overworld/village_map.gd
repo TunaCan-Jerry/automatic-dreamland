@@ -1,8 +1,8 @@
 extends Node2D
 
 const TILE_SIZE := 16
-const MAP_W := 20
-const MAP_H := 30
+const MAP_W := 32
+const MAP_H := 32
 
 var player: Node2D
 var claira_follow: Node2D
@@ -74,70 +74,133 @@ func _create_tile_texture() -> ImageTexture:
 
 
 func _paint_village(source_id: int) -> void:
+	var G := Vector2i(0, 0)  # grass
+	var P := Vector2i(1, 0)  # path
+	var W := Vector2i(2, 0)  # water
+	var B := Vector2i(3, 0)  # building
+	var D := Vector2i(4, 0)  # door
+	var F := Vector2i(5, 0)  # field
+	var T := Vector2i(6, 0)  # tree
+
 	# Fill with grass
 	for x in range(MAP_W):
 		for y in range(MAP_H):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(0, 0))
+			tilemap.set_cell(Vector2i(x, y), source_id, G)
 
-	# Main path from entrance (top) to elder's house (bottom)
+	# Tree border (irregular, not a solid wall)
 	for y in range(MAP_H):
-		tilemap.set_cell(Vector2i(10, y), source_id, Vector2i(1, 0))
-
-	# Horizontal paths
-	for x in range(7, 14):
-		tilemap.set_cell(Vector2i(x, 7), source_id, Vector2i(1, 0))   # tavern row
-		tilemap.set_cell(Vector2i(x, 12), source_id, Vector2i(1, 0))  # square row
-		tilemap.set_cell(Vector2i(x, 17), source_id, Vector2i(1, 0))  # house row
-
-	# Village square + fountain
-	for x in range(9, 12):
-		for y in range(11, 14):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(1, 0))
-	tilemap.set_cell(Vector2i(10, 12), source_id, Vector2i(2, 0))  # fountain
-
-	# Tavern (building block)
-	for x in range(7, 12):
-		for y in range(5, 7):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(3, 0))
-	tilemap.set_cell(Vector2i(9, 7), source_id, Vector2i(4, 0))  # tavern door
-
-	# Your house
-	for x in range(7, 10):
-		for y in range(15, 17):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(3, 0))
-	tilemap.set_cell(Vector2i(8, 17), source_id, Vector2i(4, 0))  # your door
-
-	# Claira's house
-	for x in range(11, 14):
-		for y in range(15, 17):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(3, 0))
-	tilemap.set_cell(Vector2i(12, 17), source_id, Vector2i(4, 0))  # her door
-
-	# Fields
-	for x in range(5, 15):
-		for y in range(20, 23):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(5, 0))
-
-	# Elder's house
-	for x in range(9, 12):
-		for y in range(25, 27):
-			tilemap.set_cell(Vector2i(x, y), source_id, Vector2i(3, 0))
-	tilemap.set_cell(Vector2i(10, 25), source_id, Vector2i(4, 0))  # elder's door
-
-	# Trees along edges
-	for y in range(MAP_H):
-		tilemap.set_cell(Vector2i(0, y), source_id, Vector2i(6, 0))
-		tilemap.set_cell(Vector2i(1, y), source_id, Vector2i(6, 0))
-		tilemap.set_cell(Vector2i(MAP_W - 1, y), source_id, Vector2i(6, 0))
-		tilemap.set_cell(Vector2i(MAP_W - 2, y), source_id, Vector2i(6, 0))
-
-	# The tree (for the kiss scene)
-	tilemap.set_cell(Vector2i(8, 19), source_id, Vector2i(6, 0))
-
-	# Border trees top (except entrance)
+		tilemap.set_cell(Vector2i(0, y), source_id, T)
+		if y % 3 != 1:
+			tilemap.set_cell(Vector2i(1, y), source_id, T)
+		tilemap.set_cell(Vector2i(MAP_W - 1, y), source_id, T)
+		if y % 3 != 2:
+			tilemap.set_cell(Vector2i(MAP_W - 2, y), source_id, T)
 	for x in range(MAP_W):
-		if x < 9 or x > 11:
-			tilemap.set_cell(Vector2i(x, 0), source_id, Vector2i(6, 0))
+		if x < 14 or x > 17:
+			tilemap.set_cell(Vector2i(x, 0), source_id, T)
+		tilemap.set_cell(Vector2i(x, MAP_H - 1), source_id, T)
+
+	# Scattered trees for organic feel
+	for pos in [Vector2i(5, 5), Vector2i(7, 3), Vector2i(26, 7), Vector2i(28, 12),
+				Vector2i(4, 18), Vector2i(27, 20), Vector2i(6, 28), Vector2i(25, 28),
+				Vector2i(3, 12), Vector2i(28, 4), Vector2i(22, 25), Vector2i(8, 25),
+				Vector2i(3, 22), Vector2i(29, 16), Vector2i(14, 27), Vector2i(20, 3)]:
+		tilemap.set_cell(pos, source_id, T)
+
+	# === ENTRANCE (north) — path comes in from top center ===
+	for y in range(1, 6):
+		tilemap.set_cell(Vector2i(15, y), source_id, P)
+		tilemap.set_cell(Vector2i(16, y), source_id, P)
+
+	# === TAVERN — northeast, near entrance ===
+	# Building
+	for x in range(20, 25):
+		for y in range(4, 7):
+			tilemap.set_cell(Vector2i(x, y), source_id, B)
+	tilemap.set_cell(Vector2i(22, 7), source_id, D)  # tavern door
+	# Path to tavern
+	for x in range(16, 23):
+		tilemap.set_cell(Vector2i(x, 7), source_id, P)
+
+	# === VILLAGE SQUARE — center of map ===
+	# Wide open area with fountain
+	for x in range(13, 19):
+		for y in range(12, 16):
+			tilemap.set_cell(Vector2i(x, y), source_id, P)
+	# Fountain in center
+	tilemap.set_cell(Vector2i(15, 13), source_id, W)
+	tilemap.set_cell(Vector2i(16, 13), source_id, W)
+	tilemap.set_cell(Vector2i(15, 14), source_id, W)
+	tilemap.set_cell(Vector2i(16, 14), source_id, W)
+
+	# Path from entrance to square (winding)
+	for y in range(6, 12):
+		tilemap.set_cell(Vector2i(15, y), source_id, P)
+		tilemap.set_cell(Vector2i(16, y), source_id, P)
+	# Slight curve
+	tilemap.set_cell(Vector2i(14, 9), source_id, P)
+	tilemap.set_cell(Vector2i(14, 10), source_id, P)
+
+	# === YOUR HOUSE — west of square ===
+	for x in range(5, 9):
+		for y in range(11, 13):
+			tilemap.set_cell(Vector2i(x, y), source_id, B)
+	tilemap.set_cell(Vector2i(7, 13), source_id, D)
+	# Path from square to your house
+	for x in range(7, 13):
+		tilemap.set_cell(Vector2i(x, 13), source_id, P)
+
+	# === CLAIRA'S HOUSE — southwest, near yours ===
+	for x in range(5, 9):
+		for y in range(16, 18):
+			tilemap.set_cell(Vector2i(x, y), source_id, B)
+	tilemap.set_cell(Vector2i(7, 18), source_id, D)
+	# Path connecting houses
+	for y in range(13, 19):
+		tilemap.set_cell(Vector2i(7, y), source_id, P)
+
+	# === BENCH AREA — east side of square ===
+	# Just path tiles with the old couple nearby
+	for x in range(19, 22):
+		tilemap.set_cell(Vector2i(x, 13), source_id, P)
+
+	# === FIELDS — southeast ===
+	for x in range(20, 28):
+		for y in range(18, 23):
+			tilemap.set_cell(Vector2i(x, y), source_id, F)
+	# Path to fields
+	for y in range(15, 19):
+		tilemap.set_cell(Vector2i(19, y), source_id, P)
+	for x in range(16, 20):
+		tilemap.set_cell(Vector2i(x, 15), source_id, P)
+	for x in range(19, 21):
+		tilemap.set_cell(Vector2i(x, 18), source_id, P)
+
+	# === THE TREE — between houses and elder's, off the path ===
+	tilemap.set_cell(Vector2i(10, 21), source_id, T)
+	# Small clearing around it
+	tilemap.set_cell(Vector2i(9, 21), source_id, G)
+	tilemap.set_cell(Vector2i(11, 21), source_id, G)
+	tilemap.set_cell(Vector2i(10, 20), source_id, G)
+	tilemap.set_cell(Vector2i(10, 22), source_id, G)
+
+	# === ELDER'S HOUSE — far south, slightly west, tucked away ===
+	for x in range(10, 14):
+		for y in range(27, 29):
+			tilemap.set_cell(Vector2i(x, y), source_id, B)
+	tilemap.set_cell(Vector2i(12, 27), source_id, D)
+	# Garden near elder's house
+	for x in range(14, 17):
+		for y in range(27, 30):
+			tilemap.set_cell(Vector2i(x, y), source_id, F)
+	# Winding path from houses area to elder's
+	for y in range(19, 27):
+		tilemap.set_cell(Vector2i(10, y), source_id, P)
+	tilemap.set_cell(Vector2i(11, 26), source_id, P)
+	tilemap.set_cell(Vector2i(12, 26), source_id, P)
+	# Connect to main path network
+	for x in range(7, 11):
+		tilemap.set_cell(Vector2i(x, 19), source_id, P)
 
 
 func _setup_player() -> void:
@@ -148,7 +211,7 @@ func _setup_player() -> void:
 	var npc_positions: Array[Vector2i] = []
 	for npc in npcs:
 		npc_positions.append(npc.grid_pos)
-	player.setup(Vector2i(8, 18), tilemap, npc_positions)
+	player.setup(Vector2i(7, 14), tilemap, npc_positions)
 	player.interacted.connect(_on_player_interact)
 	player.moved.connect(_on_player_moved)
 
@@ -161,40 +224,46 @@ func _setup_claira() -> void:
 	claira_follow = Node2D.new()
 	claira_follow.set_script(load("res://scripts/overworld/follow_npc.gd"))
 	add_child(claira_follow)
-	claira_follow.setup(Vector2i(10, 13))
+	claira_follow.setup(Vector2i(15, 15))
 	claira_follow.visible = false
 
 
 func _setup_npcs() -> void:
-	_add_npc("Tavern Keeper", Vector2i(9, 8), "interact", Color(0.8, 0.6, 0.2), func(state: int) -> Array:
+	# Tavern area — northeast
+	_add_npc("Tavern Keeper", Vector2i(22, 8), "interact", Color(0.8, 0.6, 0.2), func(state: int) -> Array:
 		if state >= QuestState.State.GOT_QUEST:
 			return DialogueData.tavern_keeper_after_quest()
 		return DialogueData.tavern_keeper()
 	)
-	_add_npc("Patron", Vector2i(11, 8), "interact", Color(0.6, 0.5, 0.4), func(_s: int) -> Array:
+	_add_npc("Patron", Vector2i(24, 8), "interact", Color(0.6, 0.5, 0.4), func(_s: int) -> Array:
 		return DialogueData.flavor_patron()
 	)
-	_add_npc("Old Man", Vector2i(8, 11), "interact", Color(0.7, 0.7, 0.7), func(_s: int) -> Array:
+	# Square area — center
+	_add_npc("Old Man", Vector2i(20, 13), "interact", Color(0.7, 0.7, 0.7), func(_s: int) -> Array:
 		return DialogueData.old_couple()
 	)
-	_add_npc("Kid", Vector2i(11, 13), "interact", Color(0.9, 0.7, 0.3), func(_s: int) -> Array:
+	_add_npc("Kid", Vector2i(14, 15), "interact", Color(0.9, 0.7, 0.3), func(_s: int) -> Array:
 		return DialogueData.flavor_kid()
 	)
-	_add_npc("Dad", Vector2i(7, 21), "interact", Color(0.3, 0.6, 0.3), func(state: int) -> Array:
+	# Fields — southeast
+	_add_npc("Dad", Vector2i(22, 20), "interact", Color(0.3, 0.6, 0.3), func(state: int) -> Array:
 		if state >= QuestState.State.GOT_QUEST:
 			return DialogueData.dad_after_quest()
 		return DialogueData.dad_greeting()
 	)
-	_add_npc("Farmer", Vector2i(12, 21), "interact", Color(0.5, 0.7, 0.3), func(_s: int) -> Array:
+	_add_npc("Farmer", Vector2i(25, 20), "interact", Color(0.5, 0.7, 0.3), func(_s: int) -> Array:
 		return DialogueData.flavor_farmer()
 	)
-	_add_npc("Claira", Vector2i(10, 13), "auto", Color(0.9, 0.5, 0.3), func(_s: int) -> Array:
+	# Claira — near fountain in square
+	_add_npc("Claira", Vector2i(15, 15), "auto", Color(0.9, 0.5, 0.3), func(_s: int) -> Array:
 		return DialogueData.claira_first_meeting()
 	, false)
-	_add_npc("Elder", Vector2i(10, 24), "auto", Color(0.7, 0.5, 0.7), func(_s: int) -> Array:
+	# Elder — at her house in the south
+	_add_npc("Elder", Vector2i(12, 26), "auto", Color(0.7, 0.5, 0.7), func(_s: int) -> Array:
 		return DialogueData.elder_conversation()
 	, false)
-	_add_npc("Home", Vector2i(8, 17), "interact", Color(0.4, 0.25, 0.15), func(_s: int) -> Array:
+	# Your house door — west
+	_add_npc("Home", Vector2i(7, 13), "interact", Color(0.4, 0.25, 0.15), func(_s: int) -> Array:
 		return DialogueData.house_photo()
 	)
 
@@ -278,9 +347,9 @@ func _handle_post_dialogue(npc: Node2D) -> void:
 
 
 func _check_zone_triggers() -> void:
-	# Tree kiss trigger
+	# Tree kiss trigger — near the tree at (10, 21)
 	if quest_state.current_state == QuestState.State.TALKED_TO_CLAIRA:
-		if player.grid_pos == Vector2i(8, 20) or player.grid_pos == Vector2i(9, 19):
+		if player.grid_pos == Vector2i(9, 21) or player.grid_pos == Vector2i(11, 21) or player.grid_pos == Vector2i(10, 20) or player.grid_pos == Vector2i(10, 22):
 			quest_state.set_state(QuestState.State.WALKING_TO_ELDER)
 			player.disable_input()
 			dialogue_manager.play(DialogueData.tree_kiss())
@@ -288,7 +357,7 @@ func _check_zone_triggers() -> void:
 			quest_state.set_state(QuestState.State.AT_ELDER)
 			player.enable_input()
 
-	# Village exit
+	# Village exit — north
 	if quest_state.current_state == QuestState.State.GOT_QUEST:
 		if player.grid_pos.y <= 1:
 			quest_state.set_state(QuestState.State.ON_THE_ROAD)
