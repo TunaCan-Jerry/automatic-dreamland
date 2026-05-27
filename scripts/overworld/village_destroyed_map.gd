@@ -39,11 +39,14 @@ func _create_tilemap() -> void:
 	# 0=ash, 1=scorched path, 2=rubble (not walkable), 3=ember
 	for i in range(4):
 		source.create_tile(Vector2i(i, 0))
-		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
-		tile_data.set_custom_data_by_layer_id(0, i != 2)
 
 	var source_id := tileset.add_source(source)
 	tilemap.tile_set = tileset
+
+	var walkable := [true, true, false, true]
+	for i in range(4):
+		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
+		tile_data.set_custom_data_by_layer_id(0, walkable[i])
 
 	# Fill with ash
 	for x in range(MAP_W):

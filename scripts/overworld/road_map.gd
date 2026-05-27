@@ -35,11 +35,14 @@ func _create_tilemap() -> void:
 
 	for i in range(3):
 		source.create_tile(Vector2i(i, 0))
-		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
-		tile_data.set_custom_data_by_layer_id(0, i != 2)
 
 	var source_id := tileset.add_source(source)
 	tilemap.tile_set = tileset
+
+	var walkable := [true, true, false]
+	for i in range(3):
+		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
+		tile_data.set_custom_data_by_layer_id(0, walkable[i])
 
 	# Paint road
 	for x in range(MAP_W):

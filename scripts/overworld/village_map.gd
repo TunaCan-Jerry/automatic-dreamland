@@ -38,15 +38,19 @@ func _create_tilemap() -> void:
 	source.texture = _create_tile_texture()
 	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
 
-	# Tile IDs in the atlas (single row of colored tiles):
-	# 0=grass, 1=path, 2=water, 3=building, 4=door, 5=field, 6=tree
+	# Create tiles first
 	for i in range(7):
 		source.create_tile(Vector2i(i, 0))
-		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
-		tile_data.set_custom_data_by_layer_id(0, i != 2 and i != 3 and i != 6)  # walkable
 
+	# Add source to tileset so custom data layers are accessible
 	var source_id := tileset.add_source(source)
 	tilemap.tile_set = tileset
+
+	# Now set custom data (0=grass, 1=path, 2=water, 3=building, 4=door, 5=field, 6=tree)
+	var walkable := [true, true, false, false, true, true, false]
+	for i in range(7):
+		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
+		tile_data.set_custom_data_by_layer_id(0, walkable[i])
 
 	_paint_village(source_id)
 
