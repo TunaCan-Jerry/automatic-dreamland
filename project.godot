@@ -3,8 +3,11 @@ config_version=5
 
 [application]
 config/name="Automatic Dreamland"
-run/main_scene="res://scenes/battle/battle.tscn"
+run/main_scene="res://scenes/overworld/village.tscn"
 config/features=PackedStringArray("4.4")
+
+[autoload]
+SceneManager="*res://scripts/overworld/scene_manager.gd"
 
 [display]
 window/size/viewport_width=1280
