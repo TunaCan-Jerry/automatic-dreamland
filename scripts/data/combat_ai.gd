@@ -259,14 +259,13 @@ func move_combatant_toward(combatant: CombatantData, target_pos: Vector2i, grid:
 		steps -= 1
 		destination = full_path[steps]
 
-	if destination == combatant.position:
+	if destination == combatant.position or grid.is_occupied(destination):
 		return {path = [], moved = false}
 
 	var traveled_path: Array[Vector2i] = []
 	for i in range(steps + 1):
 		traveled_path.append(full_path[i])
 
-	# Update grid and combatant position.
 	grid.remove_combatant(combatant.position)
 	combatant.position = destination
 	grid.place_combatant(destination, combatant)
