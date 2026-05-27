@@ -49,7 +49,7 @@ func tick_status_effects() -> void:
 	for effect in status_effects:
 		var turns_left: int = effect.get("remaining_turns", 0) - 1
 		if turns_left > 0:
-			var updated := effect.duplicate()
+			var updated = effect.duplicate()
 			updated["remaining_turns"] = turns_left
 			remaining.append(updated)
 	status_effects = remaining

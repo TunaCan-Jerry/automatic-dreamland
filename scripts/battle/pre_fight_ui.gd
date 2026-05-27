@@ -13,6 +13,10 @@ var battle_manager: Node
 @onready var instructions: Label = $Instructions
 
 
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
 func setup(roster: Array[Dictionary], manager: Node) -> void:
 	battle_manager = manager
 	for data in roster:

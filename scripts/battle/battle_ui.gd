@@ -8,6 +8,11 @@ signal pause_toggled
 var battle_manager: Node
 var selecting_heal_target: bool = false
 
+
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
 @onready var turn_order: HBoxContainer = $TopBar/TurnOrder
 @onready var turn_label: Label = $TopBar/TurnLabel
 @onready var commander_btn: Button = $BottomBar/CommanderButton

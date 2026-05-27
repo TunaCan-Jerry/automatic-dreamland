@@ -24,7 +24,7 @@ func decide_action(combatant: CombatantData, enemies: Array, allies: Array, grid
 		return {type = "ability", ability = basic, target = target, targets = [target]}
 
 	# Move toward target, then re-check range.
-	var move_result: Dictionary = move_toward(combatant, target.position, grid)
+	var move_result: Dictionary = move_combatant_toward(combatant, target.position, grid)
 	var new_dist: int = grid.hex_distance(combatant.position, target.position)
 
 	# Re-select ability after moving (position changed).
@@ -215,8 +215,11 @@ func get_ability_targets(
 			return enemies.filter(func(e): return e.is_alive())
 
 		"adjacent_allies":
-			return allies.filter(func(a): return a.is_alive() and
-					grid.hex_distance(combatant.position, a.position) <= 1)
+			var result: Array = []
+			for a in allies:
+				if a.is_alive() and grid.hex_distance(combatant.position, a.position) <= 1:
+					result.append(a)
+			return result
 
 		"adjacent_hexes":
 			# Grid neighbors occupied by enemies of the caster.
@@ -239,7 +242,7 @@ func get_ability_targets(
 ## Move combatant up to movement_allowance steps along the path toward target_pos.
 ## Updates grid occupancy and combatant.position.
 ## Returns {path: Array[Vector2i], moved: bool}
-func move_toward(combatant: CombatantData, target_pos: Vector2i, grid: HexGrid) -> Dictionary:
+func move_combatant_toward(combatant: CombatantData, target_pos: Vector2i, grid: HexGrid) -> Dictionary:
 	var full_path: Array[Vector2i] = grid.find_path(combatant.position, target_pos)
 
 	if full_path.size() <= 1:
