@@ -35,52 +35,55 @@ func _create_tilemap() -> void:
 	tileset.set_custom_data_layer_type(0, TYPE_BOOL)
 
 	var source := TileSetAtlasSource.new()
-	source.texture = _create_tile_texture()
+	var texture := load("res://assets/serene_village_16x16.png")
+	source.texture = texture
 	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
 
-	# Create tiles first
-	for i in range(7):
-		source.create_tile(Vector2i(i, 0))
+	# Map our tile types to atlas coordinates in the Serene Village tileset
+	# These are (column, row) positions in the 19x45 grid
+	# We create tiles at these specific atlas coords
+	var tile_atlas_coords: Array[Vector2i] = [
+		Vector2i(1, 1),   # 0: grass (center of grass autotile)
+		Vector2i(7, 1),   # 1: path (center of path autotile)
+		Vector2i(1, 4),   # 2: water (center of water autotile)
+		Vector2i(5, 7),   # 3: building wall (stone/wood)
+		Vector2i(6, 7),   # 4: door
+		Vector2i(4, 1),   # 5: field (lighter grass / farmland)
+		Vector2i(11, 8),  # 6: tree trunk
+	]
 
-	# Add source to tileset so custom data layers are accessible
+	for coord in tile_atlas_coords:
+		if not source.has_tile(coord):
+			source.create_tile(coord)
+
 	var source_id := tileset.add_source(source)
 	tilemap.tile_set = tileset
 
-	# Now set custom data (0=grass, 1=path, 2=water, 3=building, 4=door, 5=field, 6=tree)
+	# Set walkable data: 0=grass, 1=path, 2=water, 3=building, 4=door, 5=field, 6=tree
 	var walkable := [true, true, false, false, true, true, false]
-	for i in range(7):
-		var tile_data := source.get_tile_data(Vector2i(i, 0), 0)
+	for i in range(tile_atlas_coords.size()):
+		var tile_data := source.get_tile_data(tile_atlas_coords[i], 0)
 		tile_data.set_custom_data_by_layer_id(0, walkable[i])
 
+	# Store atlas coords for use in _paint_village
+	_tile_coords = tile_atlas_coords
 	_paint_village(source_id)
 
 
-func _create_tile_texture() -> ImageTexture:
-	var img := Image.create(TILE_SIZE * 7, TILE_SIZE, false, Image.FORMAT_RGB8)
-	var colors := [
-		Color(0.3, 0.6, 0.2),   # grass
-		Color(0.7, 0.6, 0.4),   # path
-		Color(0.2, 0.3, 0.7),   # water
-		Color(0.5, 0.3, 0.2),   # building
-		Color(0.4, 0.25, 0.15), # door
-		Color(0.5, 0.7, 0.2),   # field
-		Color(0.1, 0.4, 0.1),   # tree
-	]
-	for i in range(7):
-		for x in range(TILE_SIZE):
-			for y in range(TILE_SIZE):
-				img.set_pixel(i * TILE_SIZE + x, y, colors[i])
-	return ImageTexture.create_from_image(img)
+var _tile_coords: Array[Vector2i] = []
+
+func _get_tile(index: int) -> Vector2i:
+	return _tile_coords[index]
 
 
 func _paint_village(source_id: int) -> void:
-	var G := Vector2i(0, 0)  # grass
-	var P := Vector2i(1, 0)  # path
-	var W := Vector2i(2, 0)  # water
-	var B := Vector2i(3, 0)  # building
-	var D := Vector2i(4, 0)  # door
-	var F := Vector2i(5, 0)  # field
-	var T := Vector2i(6, 0)  # tree
+	var G := _get_tile(0)  # grass
+	var P := _get_tile(1)  # path
+	var W := _get_tile(2)  # water
+	var B := _get_tile(3)  # building
+	var D := _get_tile(4)  # door
+	var F := _get_tile(5)  # field
+	var T := _get_tile(6)  # tree
 
 	# Fill with grass
 	for x in range(MAP_W):
