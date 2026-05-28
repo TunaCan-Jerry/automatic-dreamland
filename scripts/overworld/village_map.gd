@@ -1,8 +1,6 @@
 extends Node2D
 
 const TILE_SIZE := 16
-const MAP_W := 32
-const MAP_H := 32
 
 var player: Node2D
 var claira_follow: Node2D
@@ -16,194 +14,13 @@ func _ready() -> void:
 	quest_state = SceneManager.quest_state
 	dialogue_manager = SceneManager.get_dialogue_manager()
 
-	_create_tilemap()
-	_setup_player()
+	tilemap = $TileMap
 	_setup_npcs()
+	_setup_player()
 	_setup_claira()
 
 
-func _create_tilemap() -> void:
-	tilemap = TileMapLayer.new()
-	tilemap.name = "TileMap"
-	add_child(tilemap)
-
-	var tileset := TileSet.new()
-	tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
-
-	tileset.add_custom_data_layer()
-	tileset.set_custom_data_layer_name(0, "walkable")
-	tileset.set_custom_data_layer_type(0, TYPE_BOOL)
-
-	var source := TileSetAtlasSource.new()
-	var texture := load("res://assets/serene_village_16x16.png")
-	source.texture = texture
-	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-
-	# Map our tile types to atlas coordinates in the Serene Village tileset
-	# These are (column, row) positions in the 19x45 grid
-	# We create tiles at these specific atlas coords
-	var tile_atlas_coords: Array[Vector2i] = [
-		Vector2i(1, 1),   # 0: grass (center of grass autotile)
-		Vector2i(7, 1),   # 1: path (center of path autotile)
-		Vector2i(1, 4),   # 2: water (center of water autotile)
-		Vector2i(5, 7),   # 3: building wall (stone/wood)
-		Vector2i(6, 7),   # 4: door
-		Vector2i(4, 1),   # 5: field (lighter grass / farmland)
-		Vector2i(11, 8),  # 6: tree trunk
-	]
-
-	for coord in tile_atlas_coords:
-		if not source.has_tile(coord):
-			source.create_tile(coord)
-
-	var source_id := tileset.add_source(source)
-	tilemap.tile_set = tileset
-
-	# Set walkable data: 0=grass, 1=path, 2=water, 3=building, 4=door, 5=field, 6=tree
-	var walkable := [true, true, false, false, true, true, false]
-	for i in range(tile_atlas_coords.size()):
-		var tile_data := source.get_tile_data(tile_atlas_coords[i], 0)
-		tile_data.set_custom_data_by_layer_id(0, walkable[i])
-
-	# Store atlas coords for use in _paint_village
-	_tile_coords = tile_atlas_coords
-	_paint_village(source_id)
-
-
-var _tile_coords: Array[Vector2i] = []
-
-func _get_tile(index: int) -> Vector2i:
-	return _tile_coords[index]
-
-
-func _paint_village(source_id: int) -> void:
-	var G := _get_tile(0)  # grass
-	var P := _get_tile(1)  # path
-	var W := _get_tile(2)  # water
-	var B := _get_tile(3)  # building
-	var D := _get_tile(4)  # door
-	var F := _get_tile(5)  # field
-	var T := _get_tile(6)  # tree
-
-	# Fill with grass
-	for x in range(MAP_W):
-		for y in range(MAP_H):
-			tilemap.set_cell(Vector2i(x, y), source_id, G)
-
-	# Tree border (irregular, not a solid wall)
-	for y in range(MAP_H):
-		tilemap.set_cell(Vector2i(0, y), source_id, T)
-		if y % 3 != 1:
-			tilemap.set_cell(Vector2i(1, y), source_id, T)
-		tilemap.set_cell(Vector2i(MAP_W - 1, y), source_id, T)
-		if y % 3 != 2:
-			tilemap.set_cell(Vector2i(MAP_W - 2, y), source_id, T)
-	for x in range(MAP_W):
-		if x < 14 or x > 17:
-			tilemap.set_cell(Vector2i(x, 0), source_id, T)
-		tilemap.set_cell(Vector2i(x, MAP_H - 1), source_id, T)
-
-	# Scattered trees for organic feel
-	for pos in [Vector2i(5, 5), Vector2i(7, 3), Vector2i(26, 7), Vector2i(28, 12),
-				Vector2i(4, 18), Vector2i(27, 20), Vector2i(6, 28), Vector2i(25, 28),
-				Vector2i(3, 12), Vector2i(28, 4), Vector2i(22, 25), Vector2i(8, 25),
-				Vector2i(3, 22), Vector2i(29, 16), Vector2i(14, 27), Vector2i(20, 3)]:
-		tilemap.set_cell(pos, source_id, T)
-
-	# === ENTRANCE (north) — path comes in from top center ===
-	for y in range(1, 6):
-		tilemap.set_cell(Vector2i(15, y), source_id, P)
-		tilemap.set_cell(Vector2i(16, y), source_id, P)
-
-	# === TAVERN — northeast, near entrance ===
-	# Building
-	for x in range(20, 25):
-		for y in range(4, 7):
-			tilemap.set_cell(Vector2i(x, y), source_id, B)
-	tilemap.set_cell(Vector2i(22, 7), source_id, D)  # tavern door
-	# Path to tavern
-	for x in range(16, 23):
-		tilemap.set_cell(Vector2i(x, 7), source_id, P)
-
-	# === VILLAGE SQUARE — center of map ===
-	# Wide open area with fountain
-	for x in range(13, 19):
-		for y in range(12, 16):
-			tilemap.set_cell(Vector2i(x, y), source_id, P)
-	# Fountain in center
-	tilemap.set_cell(Vector2i(15, 13), source_id, W)
-	tilemap.set_cell(Vector2i(16, 13), source_id, W)
-	tilemap.set_cell(Vector2i(15, 14), source_id, W)
-	tilemap.set_cell(Vector2i(16, 14), source_id, W)
-
-	# Path from entrance to square (winding)
-	for y in range(6, 12):
-		tilemap.set_cell(Vector2i(15, y), source_id, P)
-		tilemap.set_cell(Vector2i(16, y), source_id, P)
-	# Slight curve
-	tilemap.set_cell(Vector2i(14, 9), source_id, P)
-	tilemap.set_cell(Vector2i(14, 10), source_id, P)
-
-	# === YOUR HOUSE — west of square ===
-	for x in range(5, 9):
-		for y in range(11, 13):
-			tilemap.set_cell(Vector2i(x, y), source_id, B)
-	tilemap.set_cell(Vector2i(7, 13), source_id, D)
-	# Path from square to your house
-	for x in range(7, 13):
-		tilemap.set_cell(Vector2i(x, 13), source_id, P)
-
-	# === CLAIRA'S HOUSE — southwest, near yours ===
-	for x in range(5, 9):
-		for y in range(16, 18):
-			tilemap.set_cell(Vector2i(x, y), source_id, B)
-	tilemap.set_cell(Vector2i(7, 18), source_id, D)
-	# Path connecting houses
-	for y in range(13, 19):
-		tilemap.set_cell(Vector2i(7, y), source_id, P)
-
-	# === BENCH AREA — east side of square ===
-	# Just path tiles with the old couple nearby
-	for x in range(19, 22):
-		tilemap.set_cell(Vector2i(x, 13), source_id, P)
-
-	# === FIELDS — southeast ===
-	for x in range(20, 28):
-		for y in range(18, 23):
-			tilemap.set_cell(Vector2i(x, y), source_id, F)
-	# Path to fields
-	for y in range(15, 19):
-		tilemap.set_cell(Vector2i(19, y), source_id, P)
-	for x in range(16, 20):
-		tilemap.set_cell(Vector2i(x, 15), source_id, P)
-	for x in range(19, 21):
-		tilemap.set_cell(Vector2i(x, 18), source_id, P)
-
-	# === THE TREE — between houses and elder's, off the path ===
-	tilemap.set_cell(Vector2i(10, 21), source_id, T)
-	# Small clearing around it
-	tilemap.set_cell(Vector2i(9, 21), source_id, G)
-	tilemap.set_cell(Vector2i(11, 21), source_id, G)
-	tilemap.set_cell(Vector2i(10, 20), source_id, G)
-	tilemap.set_cell(Vector2i(10, 22), source_id, G)
-
-	# === ELDER'S HOUSE — far south, slightly west, tucked away ===
-	for x in range(10, 14):
-		for y in range(27, 29):
-			tilemap.set_cell(Vector2i(x, y), source_id, B)
-	tilemap.set_cell(Vector2i(12, 27), source_id, D)
-	# Garden near elder's house
-	for x in range(14, 17):
-		for y in range(27, 30):
-			tilemap.set_cell(Vector2i(x, y), source_id, F)
-	# Winding path from houses area to elder's
-	for y in range(19, 27):
-		tilemap.set_cell(Vector2i(10, y), source_id, P)
-	tilemap.set_cell(Vector2i(11, 26), source_id, P)
-	tilemap.set_cell(Vector2i(12, 26), source_id, P)
-	# Connect to main path network
-	for x in range(7, 11):
-		tilemap.set_cell(Vector2i(x, 19), source_id, P)
+	# Tilemap is now painted in the Godot editor — no programmatic generation
 
 
 func _setup_player() -> void:
