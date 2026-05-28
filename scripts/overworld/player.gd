@@ -67,10 +67,13 @@ func _can_move_to(target: Vector2i) -> bool:
 		return true
 	var tile_data := tilemap.get_cell_tile_data(target)
 	if tile_data == null:
-		return false
-	if tile_data.get_custom_data_by_layer_id(0):
+		# No tile painted here — allow movement for now (empty space)
 		return true
-	return false
+	# Check walkable custom data if it exists, otherwise allow
+	var walkable = tile_data.get_custom_data_by_layer_id(0)
+	if walkable == null:
+		return true
+	return walkable
 
 
 func _move_to(target: Vector2i) -> void:
