@@ -1,10 +1,6 @@
-@tool
-extends EditorScript
+extends SceneTree
 
-# Run this once from the Godot editor: Script > Run (Ctrl+Shift+X)
-# Creates a TileSet resource from the Serene Village tileset
-
-func _run() -> void:
+func _init() -> void:
 	var tileset := TileSet.new()
 	tileset.tile_size = Vector2i(16, 16)
 
@@ -17,23 +13,21 @@ func _run() -> void:
 	source.texture = texture
 	source.texture_region_size = Vector2i(16, 16)
 
-	# Create all tiles in the atlas (19 columns x 45 rows)
 	for col in range(19):
 		for row in range(45):
-			var coord := Vector2i(col, row)
-			source.create_tile(coord)
+			source.create_tile(Vector2i(col, row))
 
 	var source_id := tileset.add_source(source)
 
-	# Set all tiles walkable by default, then mark unwalkable ones
 	for col in range(19):
 		for row in range(45):
 			var tile_data := source.get_tile_data(Vector2i(col, row), 0)
 			tile_data.set_custom_data_by_layer_id(0, true)
 
-	# Save the resource
 	var err := ResourceSaver.save(tileset, "res://assets/serene_village_tileset.tres")
 	if err == OK:
-		print("TileSet saved to res://assets/serene_village_tileset.tres")
+		print("SUCCESS: TileSet saved to res://assets/serene_village_tileset.tres")
 	else:
 		print("ERROR saving TileSet: ", err)
+
+	quit()
